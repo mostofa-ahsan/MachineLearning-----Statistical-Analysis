@@ -1,0 +1,31 @@
+> library(readxl)
+> Exam_ranks <- read_excel("C:/Users/Shantanu Awasthi/Downloads/Exam_ranks.xlsx")
+> View(Exam_ranks)
+> order.midterm <- order(Exam_ranks$MIDTERM) # sorting MIDTERM MARKS #
+> data1 <- Exam_ranks[order.midterm,]  
+> data1$rankM <- rank(data1$MIDTERM)       # RANKING MIDTERM #
+> order.Final <- order(Exam_ranks$FINAL)
+> data2 <- Exam_ranks[order.Final,]
+> data2$rankF <- rank(data2$FINAL)  # RANKING FINAL#
+> data1 <- cbind(data1,data2$rankF)
+> d <- c(1:82)
+> for(i in 1:82) { d[i] <- data1$rankM[i] - data1$`data2$rankF`[i] } #DIFFERENCE BETWEEN RANKS#
+> d_square <- c(1:82)
+> for(i in 1:82) { d_square[i] <- (d[i])^2}  # SQUARE OF DIFFERENCE OF RANKS#
+> data1 <- cbind(data1,d)   #COMBINING BY COLUMN , d TO DATAFRAME data1 # 
+> data1 <- cbind(data1,d_square) 
+> sum_d_square <- sum(d_square)       #SUM OF SQUARE OF DIFFERENCE#
+> rho <- 1-(6*sum_d_square)/((82)*((82)^2)-1)  #SPEARMANN COEFFICENT#
+
+ 
+
+FOR TIED RANK
+> sum_x <- sum(Exam_ranks$MIDTERM)
+> sum_y <- sum(Exam_ranks$FINAL)
+> sum_XY<- sum(Exam_ranks$MIDTERM*Exam_ranks$FINAL)
+> sum_xx <- sum((Exam_ranks$MIDTERM)^2)
+> sum_yy <- sum((Exam_ranks$FINAL)^2)
+> avg_x <- mean(Exam_ranks$MIDTERM)
+> avg_y <- mean(Exam_ranks$FINAL)
+> r <- (82*sum_XY - avg_x*avg_y)/sqrt((82*sum_xx - (avg_x)^2)*(82*sum_yy -(avg_y)^2))
+> r
