@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Sep 28 14:44:18 2017
-
-@author: Rahul
-"""
 
 import numpy
 from sklearn.metrics import accuracy_score
